@@ -5,10 +5,10 @@ const DETAIL_API_URL = `${DETAIL_API_BASE_URL}/api/v1/articles`;
 // DOM Elements
 const articleDetail = document.getElementById('articleDetail');
 const backBtn = document.getElementById('backBtn');
-const themeToggle = document.getElementById('themeToggle');
+// Removed themeToggle variable
 
 // State
-let isDarkTheme = true; // Default to dark theme for red & black design
+// Removed isDarkTheme variable
 
 // Fallback article data
 const FALLBACK_ARTICLE = {
@@ -45,12 +45,7 @@ async function getDetailAuthToken() {
 
 // Initialize page with improved error handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if user has a theme preference
-    if (localStorage.getItem('lightMode') === 'true') {
-        enableLightMode();
-    } else {
-        enableDarkMode();
-    }
+    // Always use light mode - removed theme checks
     
     // Add animation to logo
     if (document.querySelector('.logo')) {
@@ -77,15 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            if (isDarkTheme) {
-                enableLightMode();
-            } else {
-                enableDarkMode();
-            }
-        });
-    }
+    // Removed theme toggle event listener
 });
 
 // Get article ID from URL parameter
@@ -364,19 +351,4 @@ function showError(message) {
             <small>If this problem persists, please contact our support team.</small>
         </div>
     `;
-}
-
-// Theme toggle functions
-function enableDarkMode() {
-    document.body.classList.remove('light-theme');
-    if (themeToggle) themeToggle.innerHTML = '☀️';
-    isDarkTheme = true;
-    localStorage.setItem('lightMode', 'false');
-}
-
-function enableLightMode() {
-    document.body.classList.add('light-theme');
-    if (themeToggle) themeToggle.innerHTML = '🌙';
-    isDarkTheme = false;
-    localStorage.setItem('lightMode', 'true');
 }

@@ -1,984 +1,955 @@
 :root {
-    --primary-color: #e63946;
-    --primary-hover: #ff4d5e;
-    --primary-dark: #c1121f;
-    --text-color: #f1faee;
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --header-bg: #0a0a0a;
-    --border-color: #333;
-    --shadow-color: rgba(0, 0, 0, 0.5);
-    --transition-speed: 0.3s;
-    --border-radius: 12px;
+  --primary-color: #e63946;
+  --primary-hover: #ff4d5e;
+  --primary-dark: #c1121f;
+  --text-color: #121212;
+  --bg-color: #f1faee;
+  --card-bg: #ffffff;
+  --header-bg: #f8f9fa;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+  --border-radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all var(--transition-speed) ease;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+header {
+  background-color: var(--header-bg);
+  padding: 1.2rem 2rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.logo-img {
+  max-height: 128px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-self: end;
+}
+
+.category-filters {
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.category-btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  z-index: -1;
+  border-radius: 28px;
+}
+
+.category-btn:hover::before {
+  width: 100%;
+}
+
+.category-btn:hover {
+  color: white;
+  box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+  transform: translateY(-3px);
+}
+
+.category-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
   }
-  
-  .light-theme {
-    --primary-color: #e63946;
-    --primary-hover: #ff4d5e;
-    --primary-dark: #c1121f;
-    --text-color: #121212;
-    --bg-color: #f1faee;
-    --card-bg: #ffffff;
-    --header-bg: #f8f9fa;
-    --border-color: #ddd;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+  50% {
+    opacity: 1;
   }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: all var(--transition-speed) ease;
+  100% {
+    opacity: 0.6;
   }
-  
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-  }
-  
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: var(--bg-color);
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-hover);
-  }
-  
-  header {
-    background-color: var(--header-bg);
-    padding: 1.2rem 2rem;
-    box-shadow: 0 4px 20px var(--shadow-color);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  
-  .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    position: relative;
-  }
-  
-  .logo-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-  }
-  
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.news-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 20px var(--shadow-color);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+.news-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 0;
+  background-color: var(--primary-color);
+  transition: height 0.4s ease;
+  z-index: 1;
+}
+
+.news-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(230, 57, 70, 0.3);
+  border-color: var(--primary-color);
+}
+
+.news-card:hover::before {
+  height: 100%;
+}
+
+.card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.news-card:hover .card-img {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.placeholder-img {
+  width: 100%;
+  height: 220px;
+  background-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.card-content {
+  padding: 1.8rem;
+  position: relative;
+}
+
+.card-category {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 8px rgba(230, 57, 70, 0.3);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.news-card:hover .card-category {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(230, 57, 70, 0.5);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.news-card:hover .card-title {
+  color: var(--primary-color);
+}
+
+.card-desc {
+  color: var(--text-color);
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.news-card:hover .card-footer {
+  border-color: var(--primary-color);
+}
+
+.card-date {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.card-source {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.footer {
+  background-color: var(--header-bg);
+  margin-top: 4rem;
+  padding: 0;
+  color: var(--text-color);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  gap: 1.5rem;
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  text-decoration: none; /* Add this line to remove underlines */
+}
+
+.footer-social a:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-copyright {
+  margin: 1rem 0;
+}
+
+.footer-disclaimer {
+  font-size: 0.8rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
   .logo-img {
-    max-height: 128px;
-    width: auto;
-    display: block;
-    transition: transform 0.3s ease;
+    max-height: 40px;
   }
-  
-  .logo-img:hover {
-    transform: scale(1.05);
+
+  .header-container {
+    padding: 0.8rem 1rem;
   }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    justify-self: end;
-  }
-  
-  .theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-  
-  .theme-toggle:hover {
-    background-color: rgba(230, 57, 70, 0.2);
-    transform: rotate(15deg);
-  }
-  
-  .category-filters {
-    margin: 2rem auto;
-    max-width: 1200px;
-    padding: 0 1rem;
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .category-btn {
-    padding: 0.6rem 1.2rem;
-    background-color: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-  }
-  
-  .category-btn::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0%;
-    height: 100%;
-    background-color: var(--primary-color);
-    transition: all 0.3s ease;
-    z-index: -1;
-    border-radius: 28px;
-  }
-  
-  .category-btn:hover::before {
-    width: 100%;
-  }
-  
-  .category-btn:hover {
-    color: white;
-    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
-    transform: translateY(-3px);
-  }
-  
-  .category-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  
-  .loading {
-    text-align: center;
-    padding: 3rem;
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    animation: pulse 1.5s infinite ease-in-out;
-  }
-  
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.6;
-    }
-  }
-  
-  .error {
-    text-align: center;
-    padding: 2rem;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
+
   .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: 1fr;
   }
-  
-  .news-card {
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: 0 10px 20px var(--shadow-color);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-    position: relative;
-    border: 1px solid rgba(230, 57, 70, 0.2);
+
+  .category-filters {
+    justify-content: center;
   }
-  
-  .news-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 0;
-    background-color: var(--primary-color);
-    transition: height 0.4s ease;
-    z-index: 1;
-  }
-  
+
   .news-card:hover {
-    transform: translateY(-15px) scale(1.03);
-    box-shadow: 0 15px 30px rgba(230, 57, 70, 0.3);
-    border-color: var(--primary-color);
+    transform: translateY(-8px) scale(1.01);
   }
-  
-  .news-card:hover::before {
-    height: 100%;
-  }
-  
-  .card-img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    transition: all 0.4s ease;
-  }
-  
-  .news-card:hover .card-img {
-    filter: brightness(1.1);
-    transform: scale(1.05);
-  }
-  
-  .placeholder-img {
-    width: 100%;
-    height: 220px;
-    background-color: var(--primary-color);
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .card-content {
-    padding: 1.8rem;
-    position: relative;
-  }
-  
-  .card-category {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    box-shadow: 0 3px 8px rgba(230, 57, 70, 0.3);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-  }
-  
-  .news-card:hover .card-category {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.5);
-  }
-  
-  .card-title {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-  
-  .news-card:hover .card-title {
-    color: var(--primary-color);
-  }
-  
-  .card-desc {
-    color: var(--text-color);
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border-color);
-    padding-top: 1.2rem;
-    transition: all 0.3s ease;
-  }
-  
-  .news-card:hover .card-footer {
-    border-color: var(--primary-color);
-  }
-  
-  .card-date {
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-  
-  .card-source {
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    font-weight: 600;
-  }
-  
-  .footer {
-    background-color: var(--header-bg);
-    margin-top: 4rem;
-    padding: 0;
-    color: var(--text-color);
-  }
-  
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-  
-  .footer-social {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
-    gap: 1.5rem;
-  }
-  
-  .footer-social a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    font-size: 1.2rem;
-    text-decoration: none; /* Add this line to remove underlines */
-  }
-  
-  .footer-social a:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-3px);
-  }
-  
-  .footer-bottom {
-    text-align: center;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-  
+
   .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 1rem 0;
-    gap: 1.5rem;
-  }
-  
-  .footer-links a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-  }
-  
-  .footer-links a:hover {
-    color: var(--primary-color);
-  }
-  
-  .footer-copyright {
-    margin: 1rem 0;
-  }
-  
-  .footer-disclaimer {
-    font-size: 0.8rem;
-    max-width: 800px;
-    margin: 0 auto;
-    opacity: 0.7;
-  }
-  
-  @media (max-width: 768px) {
-    .logo-img {
-      max-height: 40px;
-    }
-  
-    .header-container {
-      padding: 0.8rem 1rem;
-    }
-  
-    .news-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .category-filters {
-      justify-content: center;
-    }
-  
-    .news-card:hover {
-      transform: translateY(-8px) scale(1.01);
-    }
-  
-    .footer-links {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-    }
-  }
-  
-  /* Improved Search Styles */
-  .search-wrapper {
-    position: relative;
-  }
-  
-  .search-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    overflow: hidden;
-    transition: width 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     align-items: center;
-    background-color: white;
-    border-radius: 50px;
-    border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
   }
-  
+}
+
+/* Improved Search Styles */
+.search-wrapper {
+  position: relative;
+}
+
+.search-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.search-container.active {
+  width: 350px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
   .search-container.active {
-    width: 350px;
-    opacity: 1;
+    width: calc(100vw - 120px);
   }
-  
-  @media (max-width: 768px) {
-    .search-container.active {
-      width: calc(100vw - 120px);
-    }
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .search-input {
-    flex: 1;
-    padding: 0.8rem 1.2rem;
-    border: none;
-    background-color: white;
-    color: #333;
-    font-size: 1rem;
-    outline: none;
-    width: 100%;
-  }
-  
-  .search-input::placeholder {
-    color: #999;
-    opacity: 0.8;
-  }
-  
-  .search-btn {
-    background-color: transparent;
-    border: none;
-    color: #666;
-    padding: 0.8rem 1.2rem;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-  }
-  
-  .search-btn:hover {
-    color: var(--primary-color);
-  }
-  
-  .search-icon {
-    font-size: 1.2rem;
-  }
-  
-  .search-toggle {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 50%;
-    transition: color 0.2s ease;
-    z-index: 101;
-  }
-  
-  .search-toggle:hover,
-  .search-toggle.active {
-    color: var(--primary-color);
-  }
-  
-  /* Mobile search overlay */
-  .search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  
-  .search-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .search-mobile-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background-color: var(--header-bg);
-    box-shadow: 0 5px 15px var(--shadow-color);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-    z-index: 201;
-  }
-  
-  .search-mobile-container.active {
-    transform: translateY(0);
-  }
-  
-  .search-mobile-header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-mobile-close {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    cursor: pointer;
-  }
-  
-  /* Filter tags for mobile search */
-  .search-filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .search-filter-tag {
-    background-color: var(--bg-color);
-    border-radius: 20px;
-    padding: 0.3rem 0.8rem;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .search-filter-tag:hover {
-    background-color: var(--primary-color);
-    color: white;
-  }
-  
-  .search-results {
-    margin-top: 2rem;
-  }
-  
-  .search-results-header {
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--card-bg);
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px var(--shadow-color);
-  }
-  
-  .search-results-query {
-    font-weight: 600;
-    color: var(--primary-color);
-  }
-  
-  .search-results-count {
-    font-weight: 600;
-    color: var(--primary-color);
-  }
-  
-  .search-clear-btn {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .search-clear-btn:hover {
-    opacity: 1;
-    color: var(--primary-color);
-  }
-  
-  /* Mobile search overlay */
-  
-  /* Filter tags for mobile search */
-  
-  /* Pagination Styling */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  background-color: white;
+  color: #333;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: #999;
+  opacity: 0.8;
+}
+
+.search-btn {
+  background-color: transparent;
+  border: none;
+  color: #666;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.search-btn:hover {
+  color: var(--primary-color);
+}
+
+.search-icon {
+  font-size: 1.2rem;
+}
+
+.search-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  transition: color 0.2s ease;
+  z-index: 101;
+}
+
+.search-toggle:hover,
+.search-toggle.active {
+  color: var(--primary-color);
+}
+
+/* Mobile search overlay */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.search-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.search-mobile-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background-color: var(--header-bg);
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  z-index: 201;
+}
+
+.search-mobile-container.active {
+  transform: translateY(0);
+}
+
+.search-mobile-header {
+  display: flex;
+  align-items: center;
+}
+
+.search-mobile-close {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+/* Filter tags for mobile search */
+.search-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.search-filter-tag {
+  background-color: var(--bg-color);
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-filter-tag:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.search-results {
+  margin-top: 2rem;
+}
+
+.search-results-header {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.search-results-query {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.search-results-count {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.search-clear-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-clear-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+/* Mobile search overlay */
+
+/* Filter tags for mobile search */
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.pagination-btn {
+  padding: 0.7rem 1.2rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.pagination-btn:hover {
+  color: white;
+  box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+  transform: translateY(-3px);
+}
+
+.pagination-btn:hover::before {
+  width: 100%;
+}
+
+.pagination-info {
+  padding: 0.7rem 1.2rem;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Styles for specific buttons */
+.pagination-prev {
+  transform-origin: left;
+}
+
+.pagination-next {
+  transform-origin: right;
+}
+
+.pagination-prev:hover {
+  transform: translateX(-5px) translateY(-3px);
+}
+
+.pagination-next:hover {
+  transform: translateX(5px) translateY(-3px);
+}
+
+/* Simple Pagination Styling - "Page 1 of 82 Next >" */
+.simple-pagination {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  font-size: 1rem;
+  color: var(--text-color);
+  justify-content: flex-end;
+  padding: 0 1rem;
+}
+
+.simple-pagination-text {
+  margin-right: 0.5rem;
+}
+
+.simple-pagination-next {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.simple-pagination-next:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(3px);
+  box-shadow: 0 3px 10px rgba(230, 57, 70, 0.2);
+}
+
+.simple-pagination-prev {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.simple-pagination-prev:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(-3px);
+  box-shadow: 0 3px 10px rgba(230, 57, 70, 0.2);
+}
+
+/* Mobile Responsiveness for Pagination */
+@media (max-width: 768px) {
   .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 3rem 0;
-    padding: 1rem;
-    gap: 1rem;
+    flex-direction: column;
   }
-  
+
   .pagination-btn {
-    padding: 0.7rem 1.2rem;
-    background-color: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .pagination-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--primary-color);
-    transition: all 0.3s ease;
-    z-index: -1;
-  }
-  
-  .pagination-btn:hover {
-    color: white;
-    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-    transform: translateY(-3px);
-  }
-  
-  .pagination-btn:hover::before {
     width: 100%;
+    justify-content: center;
   }
-  
+
   .pagination-info {
-    padding: 0.7rem 1.2rem;
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
+    order: -1;
+    margin-bottom: 1rem;
   }
-  
-  /* Styles for specific buttons */
-  .pagination-prev {
-    transform-origin: left;
-  }
-  
-  .pagination-next {
-    transform-origin: right;
-  }
-  
-  .pagination-prev:hover {
-    transform: translateX(-5px) translateY(-3px);
-  }
-  
-  .pagination-next:hover {
-    transform: translateX(5px) translateY(-3px);
-  }
-  
-  /* Simple Pagination Styling - "Page 1 of 82 Next >" */
+
   .simple-pagination {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0;
-    font-size: 1rem;
-    color: var(--text-color);
-    justify-content: flex-end;
-    padding: 0 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  
-  .simple-pagination-text {
-    margin-right: 0.5rem;
+}
+
+/* News Ticker Styles - Add to your styles.css file */
+.news-ticker {
+  background-color: var(--primary-color);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 90;
+}
+
+.ticker-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ticker-label {
+  background-color: var(--primary-dark);
+  color: white;
+  font-weight: 700;
+  padding: 5px 15px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-label::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 10px solid var(--primary-dark);
+}
+
+.ticker-content {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.ticker-items {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  animation: tickerScroll 30s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.ticker-items:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  color: white;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.ticker-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.ticker-item strong {
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
   }
-  
-  .simple-pagination-next {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.4rem 0.8rem;
-    background-color: var(--card-bg);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
+  100% {
+    transform: translateX(-50%);
   }
-  
-  .simple-pagination-next:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateX(3px);
-    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.2);
-  }
-  
-  .simple-pagination-prev {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.4rem 0.8rem;
-    background-color: var(--card-bg);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    margin-right: 0.5rem;
-  }
-  
-  .simple-pagination-prev:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateX(-3px);
-    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.2);
-  }
-  
-  /* Mobile Responsiveness for Pagination */
-  @media (max-width: 768px) {
-    .pagination {
-      flex-direction: column;
-    }
-  
-    .pagination-btn {
-      width: 100%;
-      justify-content: center;
-    }
-  
-    .pagination-info {
-      order: -1;
-      margin-bottom: 1rem;
-    }
-  
-    .simple-pagination {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-  
-  /* News Ticker Styles - Add to your styles.css file */
-  .news-ticker {
-    background-color: var(--primary-color);
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 90;
-  }
-  
-  .ticker-container {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .ticker-label {
-    background-color: var(--primary-dark);
-    color: white;
-    font-weight: 700;
-    padding: 5px 15px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    letter-spacing: 1px;
-    font-size: 0.85rem;
-    position: relative;
-    z-index: 2;
-    white-space: nowrap;
-    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 0.75rem;
   }
-  
-  .ticker-label::after {
-    content: "";
-    position: absolute;
-    right: -10px;
-    top: 0;
-    width: 0;
-    height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-left: 10px solid var(--primary-dark);
-  }
-  
-  .ticker-content {
-    flex: 1;
-    overflow: hidden;
-    height: 100%;
-    position: relative;
-  }
-  
-  .ticker-items {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    animation: tickerScroll 30s linear infinite;
-    white-space: nowrap;
-    width: max-content;
-  }
-  
-  .ticker-items:hover {
-    animation-play-state: paused;
-  }
-  
+
   .ticker-item {
-    color: white;
-    padding: 0 20px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    position: relative;
+    padding: 0 15px;
+    font-size: 0.8rem;
   }
-  
-  .ticker-item:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 4px;
-    background-color: white;
-    border-radius: 50%;
-  }
-  
-  .ticker-item strong {
-    margin-left: 5px;
-    font-weight: 600;
-  }
-  
-  @keyframes tickerScroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .ticker-label {
-      padding: 5px 10px;
-      font-size: 0.75rem;
-    }
-  
-    .ticker-item {
-      padding: 0 15px;
-      font-size: 0.8rem;
-    }
-  }
-  
-  /* Add these specific styles to center the pagination - these will override any existing rules */
-  .pagination-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 2rem auto;
-    padding: 1rem 0;
-    text-align: center; /* Multiple centering approaches for maximum compatibility */
-  }
-  
-  .pagination-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the inner controls */
-    gap: 1rem;
-    margin: 0 auto; /* Center using margin auto */
-  }
-  
-  .page-indicator {
-    margin: 0 1rem;
-    color: var(--text-color);
-  }
-  
-  /* Style for the pagination buttons */
-  .pagination-btn {
-    padding: 0.7rem 1.2rem;
-    background-color: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    text-decoration: none; /* Remove underline from links */
-  }
-  
-  .pagination-btn:hover {
-    color: white;
-    background-color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-  }
-  
-  /* Make sure there's no other CSS interfering */
-  a.pagination-btn,
-  button.pagination-btn {
-    float: none !important;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-  
+}
+
+/* Add these specific styles to center the pagination - these will override any existing rules */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 1rem 0;
+  text-align: center; /* Multiple centering approaches for maximum compatibility */
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the inner controls */
+  gap: 1rem;
+  margin: 0 auto; /* Center using margin auto */
+}
+
+.page-indicator {
+  margin: 0 1rem;
+  color: var(--text-color);
+}
+
+/* Style for the pagination buttons */
+.pagination-btn {
+  padding: 0.7rem 1.2rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  text-decoration: none; /* Remove underline from links */
+}
+
+.pagination-btn:hover {
+  color: white;
+  background-color: var(--primary-color);
+  box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+}
+
+/* Make sure there's no other CSS interfering */
+a.pagination-btn,
+button.pagination-btn {
+  float: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}

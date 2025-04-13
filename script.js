@@ -6,7 +6,7 @@ const ITEMS_PER_PAGE = 9
 // State variables
 let currentCategory = ""
 let currentPage = 1
-let isDarkTheme = true // Default to dark theme for red & black design
+// Removed isDarkTheme variable
 let searchTerm = ""
 const searchCategory = ""
 const searchField = "all"
@@ -15,7 +15,7 @@ let isSearchActive = false
 // DOM Elements
 const newsContainer = document.getElementById("newsContainer")
 const categoryFilters = document.getElementById("categoryFilters")
-const themeToggle = document.getElementById("themeToggle")
+// Removed themeToggle variable
 
 // Search DOM Elements
 const searchToggle = document.getElementById("searchToggle")
@@ -92,14 +92,8 @@ const FALLBACK_NEWS = {
 
 // Initialize app when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Check if user has a theme preference
-  if (localStorage.getItem("lightMode") === "true") {
-    enableLightMode()
-  } else {
-    // Set dark mode as default
-    enableDarkMode()
-  }
-
+  // Always use light mode - removed theme checks
+  
   // Add animation class to logo
   if (document.querySelector(".logo")) {
     document.querySelector(".logo").classList.add("animate-logo")
@@ -120,16 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize search
   initializeSearch()
 
-  // Theme Toggle Event Listener
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      if (isDarkTheme) {
-        enableLightMode()
-      } else {
-        enableDarkMode()
-      }
-    })
-  }
+  // Removed theme toggle event listener
 
   // Category Filter Event Listeners
   if (categoryFilters) {
@@ -974,19 +959,7 @@ function extractCategory(article) {
   return "general"
 }
 
-function enableDarkMode() {
-  document.body.classList.remove("light-theme")
-  if (themeToggle) themeToggle.innerHTML = "☀️"
-  isDarkTheme = true
-  localStorage.setItem("lightMode", "false")
-}
-
-function enableLightMode() {
-  document.body.classList.add("light-theme")
-  if (themeToggle) themeToggle.innerHTML = "🌙"
-  isDarkTheme = false
-  localStorage.setItem("lightMode", "true")
-}
+// Removed enableDarkMode and enableLightMode functions
 
 // Make goToPage function available globally
 window.goToPage = goToPage
