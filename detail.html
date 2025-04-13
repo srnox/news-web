@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./logo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="./logo/favicon.png" type="image/x-icon">
+    <title>NewsHub - Article Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="detail.css">
+</head>
+<body class="detail-page">
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="./logo/logo.png" alt="NewsHub Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="header-right">
+                <div class="search-wrapper">
+                    <button class="search-toggle" id="searchToggle" title="Search articles">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-container" id="searchContainer">
+                        <div class="search-bar">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Search for news articles...">
+                            <button id="searchBtn" class="search-btn">
+                                <i class="fas fa-search search-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Mobile Container -->
+    <div class="search-overlay" id="searchOverlay"></div>
+    <div class="search-mobile-container" id="searchMobileContainer">
+        <div class="search-mobile-header">
+            <button class="search-mobile-close" id="searchMobileClose">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="search-bar">
+                <input type="text" id="searchInputMobile" class="search-input" placeholder="Search for news articles...">
+                <button id="searchBtnMobile" class="search-btn">
+                    <i class="fas fa-search search-icon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="search-filter-tags" id="searchFilterTags">
+            <span class="search-filter-tag" data-category="technology">Technology</span>
+            <span class="search-filter-tag" data-category="business">Business</span>
+            <span class="search-filter-tag" data-category="sports">Sports</span>
+            <span class="search-filter-tag" data-category="entertainment">Entertainment</span>
+            <span class="search-filter-tag" data-category="health">Health</span>
+            <span class="search-filter-tag" data-category="science">Science</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="articleDetail" class="article-detail">
+            <div class="loading">
+                <i class="fas fa-circle-notch fa-spin"></i> Loading article...
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="#" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Follow on TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" title="Follow on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" title="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#">Terms of Use</a>
+                    <a href="#">About NewsHub</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Accessibility Help</a>
+                    <a href="#">Contact NewsHub</a>
+                    <a href="#">Advertise with us</a>
+                    <a href="#">Do not sell</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>Copyright &copy; 2025 NewsHub. All rights reserved.</p>
+                </div>
+                <div class="footer-disclaimer">
+                    <p>NewsHub is not responsible for the content of external sites. Read about our approach to external linking.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="detail.js"></script>
+    <script>
+        // Simple search redirection for detail page
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchToggle = document.getElementById('searchToggle');
+            const searchContainer = document.getElementById('searchContainer');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchOverlay = document.getElementById('searchOverlay');
+            const searchMobileContainer = document.getElementById('searchMobileContainer');
+            const searchMobileClose = document.getElementById('searchMobileClose');
+            const searchInputMobile = document.getElementById('searchInputMobile');
+            const searchBtnMobile = document.getElementById('searchBtnMobile');
+            const searchFilterTags = document.getElementById('searchFilterTags');
+            
+            // Toggle search panel with animation
+            searchToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                if (window.innerWidth <= 768) {
+                    // Show mobile search on smaller screens
+                    searchMobileContainer.classList.add('active');
+                    searchOverlay.classList.add('active');
+                    setTimeout(() => searchInputMobile.focus(), 300);
+                } else {
+                    // Toggle search container with animation on larger screens
+                    searchContainer.classList.toggle('active');
+                    searchToggle.classList.toggle('active');
+                    
+                    if (searchContainer.classList.contains('active')) {
+                        setTimeout(() => searchInput.focus(), 300);
+                    }
+                }
+            });
+            
+            // Close mobile search
+            searchMobileClose.addEventListener('click', () => {
+                searchMobileContainer.classList.remove('active');
+                searchOverlay.classList.remove('active');
+            });
+            
+            // Close search when clicking overlay
+            searchOverlay.addEventListener('click', () => {
+                searchMobileContainer.classList.remove('active');
+                searchOverlay.classList.remove('active');
+            });
+            
+            // Document click to close search
+            document.addEventListener('click', (e) => {
+                if (searchContainer && 
+                    !searchContainer.contains(e.target) && 
+                    !searchToggle.contains(e.target) && 
+                    searchContainer.classList.contains('active')) {
+                    searchContainer.classList.remove('active');
+                    searchToggle.classList.remove('active');
+                }
+            });
+            
+            // Handle search from detail page (redirect to index.html with search query)
+            function searchFromDetail(query) {
+                if (query && query.trim()) {
+                    window.location.href = `index.html?search=${encodeURIComponent(query.trim())}`;
+                }
+            }
+            
+            // Desktop search
+            searchBtn.addEventListener('click', () => {
+                searchFromDetail(searchInput.value);
+                searchContainer.classList.remove('active');
+                searchToggle.classList.remove('active');
+            });
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchFromDetail(searchInput.value);
+                    searchContainer.classList.remove('active');
+                    searchToggle.classList.remove('active');
+                }
+            });
+            
+            // Mobile search
+            searchBtnMobile.addEventListener('click', () => {
+                searchFromDetail(searchInputMobile.value);
+                searchMobileContainer.classList.remove('active');
+                searchOverlay.classList.remove('active');
+            });
+            
+            searchInputMobile.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchFromDetail(searchInputMobile.value);
+                    searchMobileContainer.classList.remove('active');
+                    searchOverlay.classList.remove('active');
+                }
+            });
+            
+            // Category filters in mobile search
+            if (searchFilterTags) {
+                searchFilterTags.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('search-filter-tag')) {
+                        const category = e.target.dataset.category;
+                        window.location.href = `index.html?category=${category}`;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

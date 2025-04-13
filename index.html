@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./logo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="./logo/favicon.png" type="image/x-icon">
+    <title>NewsHub - Stay Informed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="slider.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="./logo/logo.png" alt="NewsHub Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="header-right">
+                <div class="search-wrapper">
+    <button class="search-toggle" id="searchToggle" title="Search articles">
+        <i class="fas fa-search"></i>
+    </button>
+    <div class="search-container" id="searchContainer">
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search for news articles...">
+            <button id="searchBtn" class="search-btn">
+                <i class="fas fa-search search-icon"></i>
+            </button>
+        </div>
+    </div>
+</div>
+        </div>
+    </header>
+
+<div class="news-ticker">
+    <div class="ticker-container">
+        <div class="ticker-label">BREAKING</div>
+        <div class="ticker-content">
+            <div class="ticker-items">
+                <span class="ticker-item">PSX: <strong>45,678</strong></span>
+                <span class="ticker-item">USD: <strong>287.65</strong></span>
+                <span class="ticker-item">GOLD RATES: <strong>$2,345</strong> per oz</span>
+                <span class="ticker-item">CURRENCY EXCHANGE: Check latest rates</span>
+                <span class="ticker-item">Top Story: Global markets stabilize after recent volatility</span>
+                <span class="ticker-item">Tech stocks see modest gains in early trading</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Search Mobile Container -->
+    <div class="search-overlay" id="searchOverlay"></div>
+    <div class="search-mobile-container" id="searchMobileContainer">
+        <div class="search-mobile-header">
+            <button class="search-mobile-close" id="searchMobileClose">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="search-bar">
+                <input type="text" id="searchInputMobile" class="search-input" placeholder="Search for news articles...">
+                <button id="searchBtnMobile" class="search-btn">
+                    <i class="fas fa-search search-icon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="search-filter-tags" id="searchFilterTags">
+            <span class="search-filter-tag" data-category="technology">Technology</span>
+            <span class="search-filter-tag" data-category="business">Business</span>
+            <span class="search-filter-tag" data-category="sports">Sports</span>
+            <span class="search-filter-tag" data-category="entertainment">Entertainment</span>
+            <span class="search-filter-tag" data-category="health">Health</span>
+            <span class="search-filter-tag" data-category="science">Science</span>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div id="searchResults" class="search-results" style="display: none;">
+            <div class="search-results-header">
+                <div>Results for: <span id="searchQuery" class="search-results-query"></span> 
+                (<span id="searchResultsCount" class="search-results-count">0</span> articles found)</div>
+                <button id="clearSearch" class="search-clear-btn">
+                    <i class="fas fa-times"></i> Clear search
+                </button>
+            </div>
+        </div>
+        <div id="newsContainer" class="news-grid">
+            <div class="loading">
+                <i class="fas fa-circle-notch fa-spin"></i> Loading news articles...
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination-container">
+        <div class="pagination-controls">
+          <a href="#" class="pagination-btn pagination-prev" onclick="goToPage(currentPage - 1)">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            Prev
+          </a>
+          <span class="page-indicator">Page 1 of 91</span>
+          <a href="#" class="pagination-btn pagination-next" onclick="goToPage(currentPage + 1)">
+            Next
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="#" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Follow on TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" title="Follow on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" title="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#">Terms of Use</a>
+                    <a href="#">About NewsHub</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Accessibility Help</a>
+                    <a href="#">Contact NewsHub</a>
+                    <a href="#">Advertise With Us</a>
+                    <a href="#">Copyright Policy</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>Copyright &copy; 2025 NewsHub. All rights reserved.</p>
+                </div>
+                <div class="footer-disclaimer">
+                    <p>NewsHub is not responsible for the content of external sites. Read about our approach to external linking.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add auth.js before other scripts -->
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="slider.js"></script>
+</body>
+</html>
