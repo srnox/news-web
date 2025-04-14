@@ -234,6 +234,9 @@ The application uses the following endpoints:
 3. **Authentication**: `GET /api/v1/auth/generate`
    - Provides authentication tokens for API access
 
+4. **News Api Details**: 
+   - Get your api from http://apps.maida.co:8013/docs
+
 ### Data Handling
 
 The application processes and displays API data with robust error handling:
