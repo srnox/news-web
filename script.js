@@ -11,6 +11,7 @@ let searchTerm = ""
 const searchCategory = ""
 const searchField = "all"
 let isSearchActive = false
+let totalPages = 91 // Default value, will be updated when data is loaded
 
 // DOM Elements
 const newsContainer = document.getElementById("newsContainer")
@@ -519,9 +520,27 @@ function clearSearchResults() {
 
 // Function to go to a specific page
 function goToPage(page) {
-  currentPage = page
-  window.scrollTo({ top: 0, behavior: "smooth" })
-  loadNewsData(currentCategory, page)
+  // Validate the page number
+  if (page < 1) {
+    page = 1;
+  } else if (page > totalPages) {
+    page = totalPages;
+  }
+  
+  // Update the current page
+  currentPage = page;
+  
+  // Scroll to top of the page
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  
+  // Update the page indicator text
+  const pageIndicator = document.querySelector('.page-indicator');
+  if (pageIndicator) {
+    pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+  
+  // Load the data for the new page
+  loadNewsData(currentCategory, page);
 }
 
 // Load news data from API
@@ -540,6 +559,16 @@ function loadNewsData(category = "", page = currentPage) {
     .then((data) => {
       // When data is loaded, add pagination
       if (data && data.page && data.pages) {
+        // Update the totalPages and currentPage variables
+        totalPages = data.pages;
+        currentPage = data.page;
+        
+        // Update page indicator text
+        const pageIndicator = document.querySelector('.page-indicator');
+        if (pageIndicator) {
+          pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+        
         // Use the simple pagination style
         addSimplePagination(data.page, data.pages)
       }
@@ -606,6 +635,16 @@ async function fetchNewsData(category = "", page = 1, limit = ITEMS_PER_PAGE) {
 
     const data = await response.json()
     console.log("API Response Data:", data)
+
+    // Update totalPages if available in response
+    if (data && data.pages) {
+      totalPages = data.pages;
+      // Update page indicator text
+      const pageIndicator = document.querySelector('.page-indicator');
+      if (pageIndicator) {
+        pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+      }
+    }
 
     // Process items to add missing category if needed
     if (data && data.items && data.items.length > 0) {
