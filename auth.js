@@ -1,11 +1,11 @@
 // Centralized authentication for NewsHub (FastAPI version)
 
-const AUTH_API_URL = "http://apps.maida.co:8013/api/v1/auth/generate"; // Updated API endpoint
+const AUTH_API_URL = "PLACE_YOUR_BASEURL"; // Updated API endpoint
 const TOKEN_STORAGE_KEY = "newshub_api_token";
 const TOKEN_EXPIRY_KEY = "newshub_token_expiry";
 
 // Your permanent token - this is provided by the API service
-const PERMANENT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2lyZW4iLCJ0eXBlIjoidXNlciIsImNyZWF0ZWRfYXQiOiIyMDI1LTAzLTI1VDE2OjM4OjE0LjQ5MTI1MiJ9.Vrp-HEJLb1dB_KHlu4vz1TZutGM6g0_iiLonrfIBdFE";
+const PERMANENT_TOKEN = "PLACE_YOUR_TOKEN";
 
 // Function to check if token is valid and not expired
 function isTokenValid() {
